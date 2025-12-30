@@ -85,7 +85,7 @@
 
 ## 🎬 Demo
 
-🔗 **Live Demo:** [https://aquanova-sakthi.vercel.app](https://aquanova-sakthi.vercel.app)
+🔗 **Live Demo:** [https://aquanova-six.vercel.app/login](https://aquanova-six.vercel.app/login)
 
 ### Screenshots
 
