@@ -1,0 +1,424 @@
+/* ===== Ocean Map - AquaNova Design System ===== */
+.ocean-map-container {
+  height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  transition: all var(--transition-slow);
+}
+
+.ocean-map-container.dark-mode {
+  background: var(--gradient-dark);
+}
+
+.map-header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: all var(--transition-base);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.map-header h2 {
+  color: var(--text-primary);
+  margin: 0;
+  background: var(--gradient-ocean);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.map-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.control-btn:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-300);
+}
+
+.control-btn.active {
+  background: var(--gradient-ocean);
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+}
+
+.map-content {
+  flex: 1;
+  display: flex;
+  position: relative;
+  gap: 0;
+}
+
+.map-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.map-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - var(--nav-height));
+  background: var(--bg-primary);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Popup Styles */
+.popup-content {
+  min-width: 220px;
+  font-family: inherit;
+}
+
+.popup-content h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.popup-content p {
+  margin: 0.4rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.alert-popup {
+  border-left: 4px solid var(--error-500);
+  padding-left: 1rem;
+}
+
+.current-arrow {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Sidebar */
+.map-sidebar {
+  width: 340px;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
+  padding: 1.5rem;
+  overflow-y: auto;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.legend-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+}
+
+.legend-section h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.color-scale {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.color-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.color-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+}
+
+/* Alert Information Styles */
+.alert-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--error-500);
+}
+
+.alert-types {
+  margin-top: 1rem;
+}
+
+.alert-type-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.alert-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.alert-indicator.high {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.alert-indicator.medium {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .map-content {
+    flex-direction: column;
+  }
+  
+  .map-sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    max-height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .map-controls {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .control-btn {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .color-scale {
+    justify-content: center;
+  }
+}
+
+/* Custom Leaflet overrides */
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-secondary);
+}
+
+.leaflet-control-layers {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.leaflet-control-zoom {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+}
+
+.leaflet-control-zoom a {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: bold;
+  transition: all var(--transition-base);
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--primary-100);
+  color: var(--primary-600);
+}
+
+/* Temperature Iframe Styling */
+.temperature-iframe-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.temperature-iframe {
+  border: none;
+  border-radius: 12px;
+}
+
+/* Ocean Currents Styling */
+.currents-iframe-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ocean-currents-iframe {
+  border: none;
+  border-radius: 12px;
+}
+
+.current-legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.current-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary-500);
+}
+
+.current-info ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.current-info li {
+  margin: 0.35rem 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.current-source {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Temperature Legend Styling */
+.temperature-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(14, 165, 233, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary-500);
+}
+
+.temperature-scale {
+  margin: 1rem 0;
+}
+
+.temperature-scale h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.temperature-gradient {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.temp-scale-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.temp-color-box {
+  width: 22px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.temperature-source {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.temperature-source p {
+  margin: 0.25rem 0;
+}

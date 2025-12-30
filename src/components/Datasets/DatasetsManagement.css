@@ -1,0 +1,627 @@
+/* ===== Datasets Management - AquaNova Professional Theme ===== */
+.datasets-container {
+  padding: var(--content-padding);
+  min-height: calc(100vh - var(--nav-height));
+  transition: all var(--transition-slow);
+}
+
+.datasets-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+.datasets-header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.dark-mode .datasets-header h1 {
+  background: linear-gradient(135deg, #60a5fa 0%, #22d3ee 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.datasets-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.datasets-controls {
+  background: var(--gradient-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  animation: slideUp 0.5s ease-out 0.1s both;
+}
+
+.dark-mode .datasets-controls {
+  background: var(--gradient-glass);
+  border-color: var(--border-strong);
+}
+
+.search-section {
+  flex: 2;
+  min-width: 300px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  z-index: 1;
+  font-size: 1.1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.9rem 1rem 0.9rem 3rem;
+  border: 2px solid var(--border-color);
+  border-radius: 14px;
+  font-size: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition-base);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-icon {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.category-filter {
+  padding: 0.85rem 1.25rem;
+  border: 2px solid var(--border-color);
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.category-filter:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.results-count {
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+}
+
+.datasets-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 200px);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.datasets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+  animation: slideUp 0.5s ease-out 0.2s both;
+}
+
+.dataset-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.dataset-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-ocean);
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.dataset-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-300);
+}
+
+.dataset-card:hover::before {
+  transform: scaleX(1);
+}
+
+.dataset-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.dataset-title {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.category-badge {
+  padding: 0.35rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.category-badge.temperature { 
+  background: linear-gradient(135deg, #ef4444, #dc2626); 
+  color: white; 
+}
+.category-badge.currents { 
+  background: var(--gradient-ocean); 
+  color: white; 
+}
+.category-badge.biodiversity { 
+  background: linear-gradient(135deg, #14b8a6, #0d9488); 
+  color: white; 
+}
+.category-badge.edna { 
+  background: linear-gradient(135deg, #10b981, #059669); 
+  color: white; 
+}
+.category-badge.biogeochemistry { 
+  background: linear-gradient(135deg, #f59e0b, #d97706); 
+  color: white; 
+}
+
+.dataset-description {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dataset-metadata {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.metadata-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.metadata-row:last-child {
+  margin-bottom: 0;
+}
+
+.metadata-icon {
+  margin-right: 0.6rem;
+  font-size: 1rem;
+  color: var(--primary-500);
+}
+
+.metadata-label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+  color: var(--text-primary);
+}
+
+.dataset-parameters, .dataset-formats {
+  margin-bottom: 1rem;
+}
+
+.dataset-parameters strong, .dataset-formats strong {
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.parameters-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.parameter-tag, .format-tag {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  padding: 0.25rem 0.65rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all var(--transition-base);
+}
+
+.parameter-tag:hover {
+  background: var(--primary-100);
+  color: var(--primary-600);
+  border-color: var(--primary-300);
+}
+
+.parameter-tag.more {
+  background: var(--gradient-ocean);
+  color: white;
+  border: none;
+}
+
+.format-tag {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success-500);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.dataset-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.action-btn {
+  padding: 0.65rem 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-base);
+}
+
+.info-btn {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.info-btn:hover {
+  background: var(--primary-100);
+  color: var(--primary-600);
+  border-color: var(--primary-300);
+  transform: translateY(-2px);
+}
+
+.download-btn {
+  background: linear-gradient(135deg, var(--success-500), #059669);
+  color: white;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border-radius: var(--card-radius);
+  max-width: 650px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-2xl);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-tertiary);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+
+.close-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all var(--transition-base);
+}
+
+.close-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error-500);
+  border-color: var(--error-500);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.detail-section {
+  margin-bottom: 1.5rem;
+}
+
+.detail-section h4 {
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.4rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.detail-section p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.parameters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.parameter-chip {
+  background: var(--gradient-ocean);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-actions {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  background: var(--bg-tertiary);
+}
+
+.download-btn-large {
+  background: linear-gradient(135deg, var(--success-500), #059669);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+}
+
+.download-btn-large:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .datasets-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-section {
+    min-width: auto;
+  }
+  
+  .results-count {
+    margin-left: 0;
+    text-align: center;
+  }
+  
+  .datasets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .datasets-container {
+    padding: 1rem;
+  }
+  
+  .datasets-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dataset-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .modal-overlay {
+    padding: 1rem;
+  }
+  
+  .modal-content {
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .datasets-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .dataset-actions {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Copernicus CLI specific styles */
+.copernicus-cli-section {
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  border-left: 4px solid var(--primary-500);
+}
+
+.cli-command-box {
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  overflow-x: auto;
+}
+
+.cli-command-box pre {
+  color: #94a3b8;
+  font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+}
+
+.cli-help {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.copernicus-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.cli-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
